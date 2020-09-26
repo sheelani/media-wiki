@@ -1,0 +1,19 @@
+Steps
+1.	Clone and switch the directory to the Repository.
+2.	Go to the folder: aws-terraform:
+        cd aws-terraform
+3.	Initialize the working directory.:
+        terraform init -input=false
+4.	Create a plan and apply
+        terraform plan 
+
+        terraform apply 
+
+5.	Terraform Output will give the  Sever public Address
+
+6.	Use the address in the Ansible host file and Run Ansible Playbook mw.yml 
+
+7.	Open the Browser and complete the installation wizard.
+
+
+

@@ -1,0 +1,12 @@
+---
+packages: 
+  - mariadb-server
+  - mariadb
+  - MySQL-python
+  - expect  
+
+db_name: wikidatabase
+ROOT_PASSWORD: wiki@123
+wiki_db_user: wikii
+WIKI_DB_PASSWORD: wikidb@123
+

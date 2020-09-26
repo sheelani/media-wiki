@@ -1,0 +1,58 @@
+---
+
+#- name: Add EPEL, REMI
+#  yum:
+#    name: "{{ external_repos }} "
+#    state: present
+
+- name : 
+  yum: 
+    name: amazon-linux-extras
+
+- name:
+  command: amazon-linux-extras enable php7.4
+
+- name:  
+  command: yum clean metadata
+
+- name: Install package with multiple repos enabled
+  yum:
+    name: "{{ packages_web }}"
+    #    enablerepo: "epel,remi-safe,remi,remi-php73"
+
+- name: start the web server
+  systemd: state=started name=httpd enabled=true
+
+- name: Download the MediaWiki Binary
+  get_url: 
+     url: 'https://releases.wikimedia.org/mediawiki/1.31/mediawiki-1.31.0.tar.gz'
+     dest: '/tmp/mediawiki-1.31.0.tar.gz'
+     mode: 0644
+
+
+
+- name: Extract /tmp/mediawiki-1.31.1.tar.gz  into /var/www
+  unarchive:
+    src: /tmp/mediawiki-1.31.0.tar.gz
+    dest: /var/www
+    remote_src: yes
+
+- name: move
+  # file: 
+  # src: '/var/www/mediawiki-1.31.0/'
+  # dest: '/var/www/mediawiki'
+  #  state: link
+  command: mv /var/www/mediawiki-1.31.0/  /var/www/mediawiki
+
+
+- name: Customize httpd with mediawiki
+  template: 
+    src: ../templates/httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+
+- name: set permissions for apache
+  command: chown -R apache:apache /var/www/mediawiki
+
+- name: restart httpd service
+  systemd: name=httpd state=restarted
+

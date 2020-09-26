@@ -1,0 +1,19 @@
+---
+
+packages_web:
+    - php 
+    - php-mysqlnd 
+    - php-gd 
+    - php-xml 
+    - php-intl
+    - php-mbstring
+
+httpd_doc_root: /var/www/mediawiki
+httpd_directory: /var/www/mediawiki
+httpd_directory_index: 'index.html index.html.var index.php' 
+
+external_repos:
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  
+      - http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+
